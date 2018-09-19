@@ -18,6 +18,21 @@ if (!process.env.AUTH0_DOMAIN || !process.env.API_IDENTIFIER || !process.env.API
 
 const apiURL = process.env.API_URL;
 
+switch(process.env.quickstart) {
+  case 'symfony':
+    // Error codes returned by Symfony API quickstart
+    var expectedErrorCodes = [403, 403, 500, 500, 403, 403, 500, 500, 500, 500, 500, 500, 403, 403];
+    break;
+  case 'express':
+    // Error codes returned by Node.js Express API quickstart
+    var expectedErrorCodes = [401, 401, 401, 401, 401, 401, 401, 401, 401, 401, 401, 401, 401, 401];
+    break;
+  default:
+    // Standard error codes returned by API quickstarts
+    var expectedErrorCodes = [401, 401, 401, 401, 401, 401, 401, 401, 401, 401, 401, 401, 403, 403];
+    break;
+}
+
 const getToken = function(clientId, clientSecret) {
   tokenRequestBody = {
     'client_id': clientId,
@@ -43,20 +58,20 @@ describe('Request without authorization header field', function() {
     });
   });
 
-  it('GET /api/private return 401 Unauthorized', function(done) {
+  it('GET /api/private return ' + expectedErrorCodes[0] + ' Unauthorized', function(done) {
     chai.request(apiURL)
     .get('/api/private')
     .end(function(err, res) {
-      res.should.have.status(401);
+      res.should.have.status(expectedErrorCodes[0]);
       done();
     });
   });
 
-  it('GET /api/private-scoped return 401 Unauthorized', function(done) {
+  it('GET /api/private-scoped return ' + expectedErrorCodes[1] + ' Unauthorized', function(done) {
     chai.request(apiURL)
     .get('/api/private-scoped')
     .end(function(err, res) {
-      res.should.have.status(401);
+      res.should.have.status(expectedErrorCodes[1]);
       done();
     });
   });
@@ -64,88 +79,88 @@ describe('Request without authorization header field', function() {
 
 describe('Request with authorization header field', function() {
   context('Authorization header field with value \'Bearer \'', function() {
-    it('GET /api/private return 401 Unauthorized', function(done) {
+    it('GET /api/private return ' + expectedErrorCodes[2] + ' Unauthorized', function(done) {
       chai.request(apiURL)
       .get('/api/private')
       .set('Authorization', 'Bearer ')
       .end(function(err, res) {
-        res.should.have.status(401);
+        res.should.have.status(expectedErrorCodes[2]);
         done();
       });
     });
 
-    it('GET /api/private-scoped return 401 Unauthorized', function(done) {
+    it('GET /api/private-scoped return ' + expectedErrorCodes[3] + ' Unauthorized', function(done) {
       chai.request(apiURL)
       .get('/api/private-scoped')
       .set('Authorization', 'Bearer ')
       .end(function(err, res) {
-        res.should.have.status(401);
+        res.should.have.status(expectedErrorCodes[3]);
         done();
       });
     });
   });
 
   context('Authorization header field with value \' \'', function() {
-    it('GET /api/private return 401 Unauthorized', function(done) {
+    it('GET /api/private return ' + expectedErrorCodes[4] + ' Unauthorized', function(done) {
       chai.request(apiURL)
       .get('/api/private')
       .set('Authorization', ' ')
       .end(function(err, res) {
-        res.should.have.status(401);
+        res.should.have.status(expectedErrorCodes[4]);
         done();
       });
     });
 
-    it('GET /api/private-scoped return 401 Unauthorized', function(done) {
+    it('GET /api/private-scoped return ' + expectedErrorCodes[5] + ' Unauthorized', function(done) {
       chai.request(apiURL)
       .get('/api/private-scoped')
       .set('Authorization', ' ')
       .end(function(err, res) {
-        res.should.have.status(401);
+        res.should.have.status(expectedErrorCodes[5]);
         done();
       });
     });
   });
 
   context('Authorization header with invalid token', function() {
-    it('GET /api/private return 401 Unauthorized', function(done) {
+    it('GET /api/private return ' + expectedErrorCodes[6] + ' Unauthorized', function(done) {
       chai.request(apiURL)
       .get('/api/private')
       .set('Authorization', 'Bearer invalidToken')
       .end(function(err, res) {
-        res.should.have.status(401);
+        res.should.have.status(expectedErrorCodes[6]);
         done();
       });
     });
 
-    it('GET /api/private-scoped return 401 Unauthorized', function(done) {
+    it('GET /api/private-scoped return ' + expectedErrorCodes[7] + ' Unauthorized', function(done) {
       chai.request(apiURL)
       .get('/api/private-scoped')
       .set('Authorization', 'Bearer invalidToken')
       .end(function(err, res) {
-        res.should.have.status(401);
+        res.should.have.status(expectedErrorCodes[7]);
         done();
       });
     });
   });
 
   context('Authorization header field with value \'Bearer invalidToken abc\'', function() {
-    it('GET /api/private return 401 Unauthorized', function(done) {
+    it('GET /api/private return ' + expectedErrorCodes[8] + ' Unauthorized', function(done) {
       chai.request(apiURL)
       .get('/api/private')
       .set('Authorization', 'Bearer invalidToken abc')
       .end(function(err, res) {
-        res.should.have.status(401);
+        res.should.have.status(expectedErrorCodes[8]);
         done();
       });
     });
 
-    it('GET /api/private-scoped return 401 Unauthorized', function(done) {
+    it('GET /api/private-scoped return ' + expectedErrorCodes[9] + ' Unauthorized', function(done) {
       chai.request(apiURL)
       .get('/api/private-scoped')
       .set('Authorization', 'Bearer invalidToken abc')
       .end(function(err, res) {
-        res.should.have.status(401);
+        res.should.have.status(expectedErrorCodes[9]);
         done();
       });
     });
@@ -162,22 +177,22 @@ describe('Request with authorization header field', function() {
       validToken = token.body.access_token;
     }));
 
-    it('GET /api/private return 401 Unauthorized', function(done) {
+    it('GET /api/private return ' + expectedErrorCodes[10] + ' Unauthorized', function(done) {
       chai.request(apiURL)
       .get('/api/private')
       .set('Authorization', 'Bearer ' + validToken + 'string')
       .end(function(err, res) {
-        res.should.have.status(401);
+        res.should.have.status(expectedErrorCodes[10]);
         done();
       });
     });
 
-    it('GET /api/private-scoped return 401 Unauthorized', function(done) {
+    it('GET /api/private-scoped return ' + expectedErrorCodes[11] + ' Unauthorized', function(done) {
       chai.request(apiURL)
       .get('/api/private-scoped')
       .set('Authorization', 'Bearer ' + validToken + 'string')
       .end(function(err, res) {
-        res.should.have.status(401);
+        res.should.have.status(expectedErrorCodes[11]);
         done();
       });
     });
@@ -205,12 +220,12 @@ describe('Request with authorization header field', function() {
       });
     });
 
-    it('GET /api/private-scoped return 403 Insufficent scope', function(done) {
+    it('GET /api/private-scoped return ' + expectedErrorCodes[12] + ' Insufficent scope', function(done) {
       chai.request(apiURL)
       .get('/api/private-scoped')
       .set('Authorization', 'Bearer ' + validToken)
       .end(function(err, res) {
-        res.should.have.status(403);
+        res.should.have.status(expectedErrorCodes[12]);
         done();
       });
     });
@@ -268,12 +283,12 @@ describe('Request with authorization header field', function() {
       });
     });
 
-    it('GET /api/private-scoped return 403 Insufficent scope', function(done) {
+    it('GET /api/private-scoped return ' + expectedErrorCodes[13] + ' Insufficent scope', function(done) {
       chai.request(apiURL)
       .get('/api/private-scoped')
       .set('Authorization', 'Bearer ' + validToken)
       .end(function(err, res) {
-        res.should.have.status(403);
+        res.should.have.status(expectedErrorCodes[13]);
         done();
       });
     });
