@@ -39,3 +39,17 @@ In order to run the tests execute:
 ```bash
 npm test
 ```
+
+**Note:** Returned error codes from [Express](https://auth0.com/docs/quickstart/backend/nodejs) and [Symfony](https://auth0.com/docs/quickstart/backend/symfony) API are different from the standard. For that cases execute:
+
+To test Express API quickstart:
+
+```bash
+quickstart="express" npm test
+```
+
+To test Symfony API quickstart:
+
+```bash
+quickstart="symfony" npm test
+```
