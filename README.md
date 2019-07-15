@@ -53,3 +53,9 @@ To test Symfony API quickstart:
 ```bash
 quickstart="symfony" npm test
 ```
+
+To test Spring 5 WebFlux API quickstart:
+
+```bash
+quickstart="spring5-webflux" npm test
+```
