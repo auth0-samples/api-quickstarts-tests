@@ -56,11 +56,6 @@ switch(process.env.quickstart) {
     expectedErrorCodes['token_with_invalid_signature_private'] = 500;
     expectedErrorCodes['token_with_invalid_signature_private_scoped'] = 500;
     break;
-  case 'express':
-    // Error codes returned by Node.js Express API quickstart
-    expectedErrorCodes['token_without_scope_private_scoped'] = 401;
-    expectedErrorCodes['token_with_scope_write:messages_private_scoped'] = 401;
-    break;
   case 'spring5-webflux':
     // Error codes returned by Spring 5 WebFlux API quickstart
     expectedErrorCodes['authorization_header_with_value_Bearer_invalidToken_abc_private'] = 500;
