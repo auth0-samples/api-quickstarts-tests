@@ -21,7 +21,7 @@ const apiURL = process.env.API_URL;
 let expectedErrorCodes = {
   'request_without_authorization_header_private': 401,
   'request_without_authorization_header_private_scoped': 401,
-  // Autrhorization: 'Bearer '
+  // Authorization: 'Bearer '
   'authorization_header_with_value_Bearer_private': 401,
   'authorization_header_with_value_Bearer_private_scoped': 401,
   // Authorization: ' '
