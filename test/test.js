@@ -40,28 +40,19 @@ let expectedErrorCodes = {
   'token_with_scope_write:messages_private_scoped': 403,
 }
 
-switch(process.env.quickstart) {
-  case 'symfony':
-    // Error codes returned by Symfony API quickstart
-    expectedErrorCodes['request_without_authorization_header_private'] = 403;
-    expectedErrorCodes['request_without_authorization_header_private_scoped'] = 403;
-    expectedErrorCodes['authorization_header_with_value_Bearer_private'] = 500;
-    expectedErrorCodes['authorization_header_with_value_Bearer_private_scoped'] = 500;
-    expectedErrorCodes['authorization_header_with_empty_value_private'] = 403;
-    expectedErrorCodes['authorization_header_with_empty_value_private_scoped'] = 403;
-    expectedErrorCodes['authorization_header_with_value_Bearer_invalidToken_private'] = 500;
-    expectedErrorCodes['authorization_header_with_value_Bearer_invalidToken_private_scoped'] = 500;
-    expectedErrorCodes['authorization_header_with_value_Bearer_invalidToken_abc_private'] = 500;
-    expectedErrorCodes['authorization_header_with_value_Bearer_invalidToken_abc_private_scoped'] = 500;
-    expectedErrorCodes['token_with_invalid_signature_private'] = 500;
-    expectedErrorCodes['token_with_invalid_signature_private_scoped'] = 500;
-    break;
-  case 'spring5-webflux':
-    // Error codes returned by Spring 5 WebFlux API quickstart
-    expectedErrorCodes['authorization_header_with_value_Bearer_invalidToken_abc_private'] = 500;
-    expectedErrorCodes['authorization_header_with_value_Bearer_invalidToken_abc_private_scoped'] = 500;
-    expectedErrorCodes['authorization_header_with_value_Bearer_private'] = 500;
-    expectedErrorCodes['authorization_header_with_value_Bearer_private_scoped'] = 500;
+if (process.env.quickstart === 'symfony') {
+  expectedErrorCodes['request_without_authorization_header_private'] = 403;
+  expectedErrorCodes['request_without_authorization_header_private_scoped'] = 403;
+  expectedErrorCodes['authorization_header_with_value_Bearer_private'] = 500;
+  expectedErrorCodes['authorization_header_with_value_Bearer_private_scoped'] = 500;
+  expectedErrorCodes['authorization_header_with_empty_value_private'] = 403;
+  expectedErrorCodes['authorization_header_with_empty_value_private_scoped'] = 403;
+  expectedErrorCodes['authorization_header_with_value_Bearer_invalidToken_private'] = 500;
+  expectedErrorCodes['authorization_header_with_value_Bearer_invalidToken_private_scoped'] = 500;
+  expectedErrorCodes['authorization_header_with_value_Bearer_invalidToken_abc_private'] = 500;
+  expectedErrorCodes['authorization_header_with_value_Bearer_invalidToken_abc_private_scoped'] = 500;
+  expectedErrorCodes['token_with_invalid_signature_private'] = 500;
+  expectedErrorCodes['token_with_invalid_signature_private_scoped'] = 500;
 }
 
 const getToken = function(clientId, clientSecret) {

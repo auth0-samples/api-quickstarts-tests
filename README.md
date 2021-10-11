@@ -40,16 +40,9 @@ In order to run the tests execute:
 npm test
 ```
 
-**Note:** Returned error codes from the [Symfony](https://auth0.com/docs/quickstart/backend/symfony) and [Spring Webflux](https://github.com/auth0-samples/auth0-spring-security5-api-sample/tree/master/01-Authorization-WebFlux) API are different from the standard. For those cases execute:
+**Note:** Returned error codes from the [Symfony](https://auth0.com/docs/quickstart/backend/symfony) API are different from the standard. For those cases execute:
 
-To test Symfony API quickstart:
 
 ```bash
 quickstart="symfony" npm test
-```
-
-To test Spring 5 WebFlux API quickstart:
-
-```bash
-quickstart="spring5-webflux" npm test
 ```
