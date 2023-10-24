@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "asyncawait": "^3.0.0",
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
     "dotenv": "^10.0.0",
