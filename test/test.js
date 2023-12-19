@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 const envVars = [ 'AUTH0_DOMAIN', 'API_IDENTIFIER', 'API_URL', 'AUTH0_CLIENT_ID_1', 'AUTH0_CLIENT_SECRET_1', 'AUTH0_CLIENT_ID_2', 'AUTH0_CLIENT_SECRET_2', 'AUTH0_CLIENT_ID_3', 'AUTH0_CLIENT_SECRET_3', 'AUTH0_CLIENT_ID_4', 'AUTH0_CLIENT_SECRET_4' ]
 
-const missingEnvVars = envVars.filter(envVar => process.env[envVar] === '');
+const missingEnvVars = envVars.filter(envVar => process.env[envVar] === '' || process.env[envVar] === undefined);
 
 if (missingEnvVars.length > 0) {
   throw `Make sure you have set the variables in your .env file, you are missing ${missingEnvVars.join(', ')}`
