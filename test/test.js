@@ -6,12 +6,12 @@ require('dotenv').config();
 
 chai.use(chaiHttp);
 
-if (!process.env.AUTH0_DOMAIN || !process.env.API_IDENTIFIER || !process.env.API_URL
-    || !process.env.AUTH0_CLIENT_ID_1 || !process.env.AUTH0_CLIENT_SECRET_1
-    || !process.env.AUTH0_CLIENT_ID_2 || !process.env.AUTH0_CLIENT_SECRET_2
-    || !process.env.AUTH0_CLIENT_ID_3 || !process.env.AUTH0_CLIENT_SECRET_3
-    || !process.env.AUTH0_CLIENT_ID_4 || !process.env.AUTH0_CLIENT_SECRET_4) {
-  throw 'Make sure you have set the variables in your .env file'
+const envVars = [ 'AUTH0_DOMAIN', 'API_IDENTIFIER', 'API_URL', 'AUTH0_CLIENT_ID_1', 'AUTH0_CLIENT_SECRET_1', 'AUTH0_CLIENT_ID_2', 'AUTH0_CLIENT_SECRET_2', 'AUTH0_CLIENT_ID_3', 'AUTH0_CLIENT_SECRET_3', 'AUTH0_CLIENT_ID_4', 'AUTH0_CLIENT_SECRET_4' ]
+
+const missingEnvVars = envVars.filter(envVar => process.env[envVar] === '');
+
+if (missingEnvVars.length > 0) {
+  throw `Make sure you have set the variables in your .env file, you are missing ${missingEnvVars.join(', ')}`
 }
 
 const apiURL = process.env.API_URL;
